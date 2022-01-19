@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>frontend</title>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function logIn(){
+
+              let name = document.getElementById("name").value;
+              let password = document.getElementById("password").value;
+                
+                var sendInfo = {
+                    "name": name,
+                    "password": password,
+                    "client_id": "1", 
+                    "client_secret" : "jGON8VXcTniKyzNDJceZ02nVhxWG1ioZfB5AaKJF"
+                }
+ 
+                $.ajax({url:"http://127.0.0.1:8000/api/login",
+                        method:"POST",
+                        data:sendInfo,
+                        dataType: "json",}).done(function(response){
+                    console.log(response);
+                    alert("sikeres bejelentkezes");
+                    window.location.href = "homepage.html";
+                });
+            }
+        </script>
+       
+    </head>
+    <body>
+        <p>welcome</p>
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+       
+        <title>frontend</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="script.js"></script>
+        <script>
+            var client_id =null ;
+
+            function fgv(){
+
+                const Username = document.getElementById("fullName").value;
+                const Password = document.getElementById("pass").value;
+                const Telephone = document.getElementById("tel").value;
+                const Country = document.getElementById("country").value;
+                const Loacality = document.getElementById("city").value;
+                const Adress = document.getElementById("adr").value;
+
+                var sendInfo = {
+                    "username": Username,
+                    "password": Password,
+                    "tel": Telephone, 
+                    "country": Country, 
+                    "locality": Loacality, 
+                    "adress": Adress, 
+                    "client_id": "1",
+                    "client_secret" : "jGON8VXcTniKyzNDJceZ02nVhxWG1ioZfB5AaKJF"
+                }
+                var updateInfo={
+                    "username": Username,
+                    "tel": Telephone, 
+                    "country": Country, 
+                    "locality": Loacality, 
+                    "adress": Adress, 
+                    "client_id": "1",
+                    "client_secret" : "jGON8VXcTniKyzNDJceZ02nVhxWG1ioZfB5AaKJF"
+                }
+
+            if(client_id == null)
+            {
+            $.ajax({url:"http://127.0.0.1:8000/API/addclient",
+                    method:"POST",
+                    data:sendInfo,
+                    dataType: "json",}).done(function(response){
+                        alert(response);
+            })
+            }
+            else{
+                $.ajax({url:`http://127.0.0.1:8000/API/update/${client_id}`,
+                        method:"POST",
+                        data:sendInfo}).done(function(response){
+                            alert(response);
+                            client_id=null;
+                            })
+            }
+        }
+
+
+
+            function onEdit(td,id) {
+            selectedRow = td.parentElement.parentElement;
+            client_id=id;
+            document.getElementById("fullName").value = selectedRow.cells[0].innerHTML;
+            document.getElementById("tel").value = selectedRow.cells[2].innerHTML;
+            //document.getElementById("pass").value = selectedRow.cells[1].innerHTML;
+            document.getElementById("country").value = selectedRow.cells[3].innerHTML;
+            document.getElementById("adr").value = selectedRow.cells[4].innerHTML;
+            document.getElementById("city").value = selectedRow.cells[5].innerHTML;
+        }
+            
+        </script>
+        
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <form id="add_client_form">
+                        <div>
+                            <label>Full Name</label>
+                            <input type="text" name="fullName" id="fullName">
+                        </div>
+                        <div>
+                            <label>Telephone</label>
+                            <input type="text" name="tel" id="tel">
+                        </div>
+                        <div>
+                            <label>Password</label>
+                            <input type="text" name="pass" id="pass">
+                        </div>
+                        <div>
+                            <label>City</label>
+                            <input type="text" name="city" id="city">
+                        </div>
+                        <div>
+                            <label>Country</label>
+                            <input type="text" name="country" id="country">
+                        </div>
+                        <div>
+                            <label>Adress</label>
+                            <input type="text" name="adr" id="adr">
+                        </div>
+                        <div  class="form-action-buttons">
+                            <button type="submit" id="submit" value="Submit" onclick="fgv()">Add Client</button>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <table id="list">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Password</th>
+                                <th>Telephone</th>
+                                <th>Country</th>
+                                <th>Adress</th>
+                                <th>City</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+    </body>
+   
+</html>
+

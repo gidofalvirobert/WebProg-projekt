@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>frontend</title>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function logIn(){
+
+              let name = document.getElementById("name").value;
+              let password = document.getElementById("password").value;
+              
+                var sendInfo = {
+                    "username": name,
+                    "password": password,
+                    "client_id": "1", 
+                    "client_secret" : "jGON8VXcTniKyzNDJceZ02nVhxWG1ioZfB5AaKJF"
+                }
+ 
+                $.ajax({url:"http://127.0.0.1:8000/API/login",
+                        method:"POST",
+                        data:sendInfo,
+                        dataType: "json",}).done(function(response){
+                    obj=jQuery.parseJSON(JSON.stringify(response));
+                    if(obj.admin == 1)
+                      window.location.href = "adminHomepage.html";
+                    else
+                      window.location.href = "homepage.html";
+                });
+            }
+        </script>
+       
+    </head>
+    <body>
+        <div>
+            <form>
+              <div class="mb-4">
+                <label for="name">
+                  Name
+                </label>
+                <input id="name" type="text" placeholder="Name">
+              </div>
+              <div class="mb-6">
+                <label for="password">
+                  Password
+                </label>
+                <input id="password" type="password" placeholder="**********">
+          
+              </div>
+
+              <div>
+                <button type="button" onclick="logIn()">
+                  Sign In
+                </button>                           
+            </div>
+
+            </form>
+          
+          </div>
+    </body>
+</html>
